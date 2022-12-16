@@ -1,48 +1,29 @@
+pub mod species;
+
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
-
 use cosmwasm_std::{Empty, Addr, Reply, SubMsgResult};
 use cw2::set_contract_version;
+
 pub use cw721_soulbound::{ContractError, InstantiateMsg, MintMsg, MinterResponse, QueryMsg};
+pub use cw721::Expiration;
+
+pub use crate::species::{Species, SapienceScale};
+
 use cw721::{ContractInfoResponse};
 
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
-pub struct Subdomain {
-    pub name: Option<String>,
-    pub resolver: Option<Addr>,
-    pub minted: Option<bool>,
-    pub expiry: Option<u64>,
-}
-
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
-pub struct Account {
-  pub username: Option<String>,
-  pub profile: Option<String>,
-  pub account_type: Option<String>,
-  pub verfication_hash: Option<String>,
-}
-
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
-pub struct Website {
-  pub url: Option<String>,
-  pub domain: Option<String>,
-  pub verfication_hash: Option<String>,
-}
-
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Serialize, Deserialize, Clone, PartialEq, JsonSchema, Debug)]
 pub struct Metadata {
-  pub name: Option<String>,         // e.g. for interoperability with external marketplaces
-  pub description: Option<String>,  // e.g. ibid.
-  pub image: Option<String>,        // e.g. ibid.
-  pub expiry: Option<u64>,
-  pub domain: Option<String>,
-  pub subdomains: Option<Vec<Subdomain>>,
-  pub accounts: Option<Vec<Account>>,
-  pub websites: Option<Vec<Website>>,
+    pub name: Option<String>,           // A human readable username (name is used for interoperability with marketplaces)
+    pub description: Option<String>,    // Description is also for interoperability with marketplaces
+    pub image: Option<String>,
+    pub cyberdization_date: Option<u64>,
+    pub dna: Option<String>,
+    pub species: Option<String>,
+    pub sapience: Option<SapienceScale>,
+    pub home_planet: Option<Addr>,
+    pub identity: Option<Addr>,         // The owner's wallet address
 }
 
 pub type Extension = Option<Metadata>;
@@ -132,83 +113,24 @@ mod tests {
             .instantiate(deps.as_mut(), mock_env(), info.clone(), init_msg)
             .unwrap();
 
-        let resolver_addr = Addr::unchecked("archway1yvnw8xj5elngcq95e2n2p8f80zl7shfwyxk88858pl6cgzveeqtqy7xtf7".to_string()); 
-
-        let subdomain1 = Subdomain {
-            name: Some("game".to_string()),
-            resolver: Some(resolver_addr.clone()),
-            minted: Some(false),
-            expiry: Some(1234567),
-        };
-        let subdomain2 = Subdomain {
-            name: Some("dapp".to_string()),
-            resolver: Some(resolver_addr.clone()),
-            minted: Some(false),
-            expiry: Some(1234567),
-        };
-        let subdomain3 = Subdomain {
-            name: Some("market".to_string()),
-            resolver: Some(resolver_addr.clone()),
-            minted: Some(false),
-            expiry: Some(1234567),
+        let species = Species {
+            name: "Cyborg type 3 (Human)".to_string(),
+            sapience_level: SapienceScale::High,
         };
 
-        let subdomains = vec![
-            subdomain1, 
-            subdomain2, 
-            subdomain3
-        ];
-
-        let accounts = vec![
-            Account {
-                username: Some("drew.taylor@philabs.xyz".to_string()),
-                profile: None,
-                account_type: Some("email".to_string()),
-                verfication_hash: None,
-            },
-            Account {
-                username: Some("@chainofinsight".to_string()),
-                profile: Some("twitter.com/chainofinsight".to_string()),
-                account_type: Some("twitter".to_string()),
-                verfication_hash: None,
-            }
-        ];
-    
-        let websites = vec![
-            Website {
-                url: Some("drewstaylor.com".to_string()),
-                domain: Some("drewstaylor.arch".to_string()),
-                verfication_hash: None,
-            },
-            Website {
-                url: Some("game.drewstaylor.com".to_string()),
-                domain: Some("game.drewstaylor.arch".to_string()),
-                verfication_hash: None,
-            },
-            Website {
-                url: Some("dapp.drewstaylor.com".to_string()),
-                domain: Some("dapp.drewstaylor.arch".to_string()),
-                verfication_hash: None,
-            },
-            Website {
-                url: Some("market.drewstaylor.com".to_string()),
-                domain: Some("market.drewstaylor.arch".to_string()),
-                verfication_hash: None,
-            }
-        ];
-    
         let metadata_extension = Some(Metadata {
-            name: Some("drewstaylor.arch".into()),
-            description: Some("default token description".into()),
+            name: Some("Traveler Name".into()),
+            description: Some("Ever since you became a Cyborg, you’ve been feeling pretty weird...".into()),
             image: Some("ipfs://QmZdPdZzZum2jQ7jg1ekfeE3LSz1avAaa42G6mfimw9TEn".into()),
-            domain: Some("drewstaylor.arch".into()),
-            expiry: Some(1234567),
-            subdomains: Some(subdomains),
-            accounts: Some(accounts),
-            websites: Some(websites),
+            cyberdization_date: Some(1671221764),
+            dna: Some("DNA String".into()), // XXX TODO (drew): Re-work the way DNA strings are built and parsed in Potion contract
+            species: Some(species.name),
+            sapience: Some(species.sapience_level),
+            home_planet: Some(Addr::unchecked("archway1yvnw8xj5elngcq95e2n2p8f80zl7shfwyxk88858pl6cgzveeqtqy7xtf7")),
+            identity: Some(Addr::unchecked("archway1f395p0gg67mmfd5zcqvpnp9cxnu0hg6r9hfczq")),
         });
 
-        let token_id = "drewstaylor.arch";
+        let token_id = "1";
         let mint_msg = MintMsg {
             token_id: token_id.to_string(),
             owner: CREATOR.to_string(),
