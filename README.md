@@ -10,12 +10,12 @@ Test implementation of Area-52 cw721-soulbound NFT blueprints for contractors an
 ## Goals
 - Contractors 
 
-This implementation will show developers how to implement NFT contracts as a basic CosmWasm contract.
+This implementation should teach developers how to implement NFT contracts as a static CosmWasm contract.
 
 - Librarians
 
-This implementation will show developers how to implement NFT contracts as a library that can be imported and used in other projects.
+This implementation should teach developers how to implement NFT contracts as a library that can be imported and used in other projects.
 
 - cw721-soulbound
 
-This package will show developers how they can make modifications to [cw721-base](https://crates.io/crates/cw721-base) to build customized tokens with their own idiosyncratic logic.
+This package should show developers how they can make modifications to [cw721-base](https://crates.io/crates/cw721-base) to build customized tokens with idiosyncratic logic.
