@@ -26,3 +26,4 @@ This package should show developers how they can make modifications to [cw721-ba
 ### TODOs:
 - Contractor implementation should go a step further and create `execute.rs`, `query.rs`, `msg.rs`, `state.rs` and instance the execute and query functions in `contract.rs` to further highlight the differences between bins and libs
 - The goal is start with what they're used to seeing and take them through the process of trimming down the very verbose code to something concise and sensible
+- This will help show devs how that using libraries *should* generally lead to smaller and easier to read code bases
