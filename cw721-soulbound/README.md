@@ -1,16 +1,16 @@
-# Cw721 Updatable
+# Cw721 Soulbound
 
 This is a basic implementation of a cw721 NFT contract. It implements
 the [CW721 spec](../../packages/cw721/README.md) and is designed to
 be deployed as is, or imported into other contracts to easily build
-cw721-compatible NFTs with custom logic.
+cw721-compatible NFTs with custom logic. Soulbound is implemented
+by removing `transfer_nft` and `send_nft` from the cw721-base package.
 
 Implements:
 
 - [x] CW721 Base
 - [x] Metadata extension
 - [x] Enumerable extension
-- [x] Updateable metadata
 
 ## Implementation
 
@@ -31,11 +31,6 @@ the minting behavior but not other functionality, you could extend this contract
 or just create a custom contract as the owner and use that contract to Mint.
 
 If provided, it is expected that the _token_uri_ points to a JSON file following the [ERC721 Metadata JSON Schema](https://eips.ethereum.org/EIPS/eip-721).
-
-## Updatable NFT Metadata
-Updating NFT metadata is possible only for NFT attributes stored as a token extension (e.g. see: `ExecuteMsg::Mint`, `ExecuteMsg::Extension`)
-
-* `UpdateMsg` is the message type for updating NFT metadata. Currently, it follows a permissions scheme where it can only be called by an individual who is both `minter` (e.g. see: `QueryMsg::Minter{}`) and token owner (e.g. see `QueryMsg::AllNftInfo`).
 
 ## Running this contract
 
