@@ -18,7 +18,7 @@ This implementation should teach developers how to implement NFT contracts as a 
 
 ##### cw721-soulbound
 
-This package should show developers how they can make modifications to [cw721-base](https://crates.io/crates/cw721-base) to build customized tokens with idiosyncratic logic. This package is used by [librarians](https://github.com/drewstaylor/cw721-soulbound/tree/main/librarians) and is *not* used by [contractors](https://github.com/drewstaylor/cw721-soulbound/tree/main/contractors).
+This package should show developers how they can make modifications to [cw721-base](https://crates.io/crates/cw721-base) to build custom tokens with idiosyncratic logic. This package is used by [librarians](https://github.com/drewstaylor/cw721-soulbound/tree/main/librarians) and is *not* used by [contractors](https://github.com/drewstaylor/cw721-soulbound/tree/main/contractors).
 
 
 ***
