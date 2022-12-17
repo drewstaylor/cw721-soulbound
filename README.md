@@ -23,7 +23,15 @@ This package should show developers how they can make modifications to [cw721-ba
 
 ***
 
-### TODOs:
-- Contractor implementation should go a step further and create `execute.rs`, `query.rs`, `msg.rs`, `state.rs` and instance the execute and query functions in `contract.rs` to further highlight the differences between bins and libs
+### Notes:
+- When creating custom cw721 tokens there are 2 strategies a developer must choose from
+- Either 1) Import everything locally so that cw721's internals can be modified directly (e.g. "Contractor" implementation); or, 2) import cw721 into a separate project and expose it as a library (e.g. "Librarian" implementation)
+- The included 2 projects (Contractor / Librarian) can be used to compare and contrast these 2 strategies
+- Developers will be tempted to use the Contractor strategy, as it better resembles what they're used to seeing in CosmWasm contracts
 - The goal is start with what they're used to seeing and take them through the process of trimming down the very verbose code to something concise and sensible
 - This will help show devs how that using libraries *should* generally lead to smaller and easier to read code bases
+- The "Librarian" strategy is also useful because it allows developers to share their token specification as a Crate that can be hosted on [Crates.io](https://crates.io/)
+- If a "Contractor" were to publish their project as a Crate it would create 2 issues
+- 1) Developers inheriting and using the crate in their own code probably won't have access to all the required types (e.g. not public); and, 2) the Crate code is tightly coupled to the original developer's project—not only would it be perhaps impossible to modify or extend, the developer importing the code will be forced to implement all the custom logic, choices, and modifications made by the original developer.
+- To sum it up: the "Contractor" strategy is not extensible and the code base is bloated and difficult to follow
+- By contrast, the "Librarian" strategy is generic and highly extensible; additionally, its code base is cleaner and easier to read.
