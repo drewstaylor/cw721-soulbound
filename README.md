@@ -24,7 +24,7 @@ This package should show developers how they can make modifications to [cw721-ba
 ***
 
 ### Notes:
-- When creating custom [cw721-base](https://crates.io/crates/cw721-base) tokens there are 2 strategies a developer must choose from
+- When creating custom [cw721](https://crates.io/crates/cw721) tokens there are 2 strategies a developer must choose from
 - Either 1) Import everything locally so that [cw721-base](https://crates.io/crates/cw721-base)'s internals can be modified directly (e.g. "Contractor" implementation); or, 2) import [cw721-base](https://crates.io/crates/cw721-base) into a separate project and expose it as a library (e.g. "Librarian" implementation)
 - The included 2 projects ([contractors](https://github.com/drewstaylor/cw721-soulbound/tree/main/contractors) / [librarians](https://github.com/drewstaylor/cw721-soulbound/tree/main/librarians)) can be used to compare and contrast these 2 strategies
 - Developers will be tempted to use the "Contractor" strategy, as it better resembles what they're used to seeing in CosmWasm contracts
