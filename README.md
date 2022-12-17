@@ -24,8 +24,8 @@ This package should show developers how they can make modifications to [cw721-ba
 ***
 
 ### Notes:
-- When creating custom [cw721](https://crates.io/crates/cw721-base) tokens there are 2 strategies a developer must choose from
-- Either 1) Import everything locally so that [cw721](https://crates.io/crates/cw721-base)'s internals can be modified directly (e.g. "Contractor" implementation); or, 2) import [cw721](https://crates.io/crates/cw721-base) into a separate project and expose it as a library (e.g. "Librarian" implementation)
+- When creating custom [cw721-base](https://crates.io/crates/cw721-base) tokens there are 2 strategies a developer must choose from
+- Either 1) Import everything locally so that [cw721](https://crates.io/crates/cw721-base)'s internals can be modified directly (e.g. "Contractor" implementation); or, 2) import [cw721-base](https://crates.io/crates/cw721-base) into a separate project and expose it as a library (e.g. "Librarian" implementation)
 - The included 2 projects ([contractors](https://github.com/drewstaylor/cw721-soulbound/tree/main/contractors) / [librarians](https://github.com/drewstaylor/cw721-soulbound/tree/main/librarians)) can be used to compare and contrast these 2 strategies
 - Developers will be tempted to use the "Contractor" strategy, as it better resembles what they're used to seeing in CosmWasm contracts
 - The goal is start with what they're used to seeing and take them through the process of trimming down the very verbose code to something concise and sensible
@@ -34,3 +34,4 @@ This package should show developers how they can make modifications to [cw721-ba
 - If a "Contractor" were to publish their project as a Crate it would create 2 issues: 1) Developers inheriting and using the crate in their own code may not have access to required types (e.g. not public); and, 2) the code is tightly coupled to the original developer's project making it difficult to modify or extend, and the developer importing the code will be forced to implement wholesale, all the custom logic, choices, and modifications made by the original developer.
 - To sum it up: the "Contractor" strategy is not extensible and the code base is bloated and difficult to follow
 - By contrast, the "Librarian" strategy is generic and highly extensible; additionally, its code base is cleaner and easier to read.
+- Understanding the differences between the "Contractor" and "Librarian" implementations should also be helpful for understanding the relationship of [cw721](https://crates.io/crates/cw721) to [cw721-base](https://crates.io/crates/cw721-base), and the relationship of [cw721](https://crates.io/crates/cw721) and [cw721-base](https://crates.io/crates/cw721-base) to their own custom NFT projects.
