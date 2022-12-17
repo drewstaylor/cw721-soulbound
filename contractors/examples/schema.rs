@@ -1,14 +1,14 @@
 use std::env::current_dir;
 use std::fs::create_dir_all;
 
-use cosmwasm_std::Empty;
 use cosmwasm_schema::{export_schema, export_schema_with_title, remove_schemas, schema_for};
 
 use cw721::{
     AllNftInfoResponse, ApprovalResponse, ApprovalsResponse, ContractInfoResponse, NftInfoResponse,
     NumTokensResponse, OperatorsResponse, OwnerOfResponse, TokensResponse,
 };
-use cw721_soulbound_contractors::contract::{ExecuteMsg, Extension, InstantiateMsg, MinterResponse, QueryMsg};
+use cw721_soulbound_contractors::msg::{ExecuteMsg, InstantiateMsg, MinterResponse, QueryMsg};
+use cw721_soulbound_contractors::contract::Extension;
 
 fn main() {
     let mut out_dir = current_dir().unwrap();
@@ -17,8 +17,8 @@ fn main() {
     remove_schemas(&out_dir).unwrap();
 
     export_schema(&schema_for!(InstantiateMsg), &out_dir);
-    export_schema_with_title(&schema_for!(ExecuteMsg), &out_dir, "ExecuteMsg");
-    export_schema(&schema_for!(QueryMsg<Empty>), &out_dir);
+    export_schema_with_title(&schema_for!(ExecuteMsg<Extension>), &out_dir, "ExecuteMsg");
+    export_schema(&schema_for!(QueryMsg), &out_dir);
     export_schema_with_title(
         &schema_for!(AllNftInfoResponse<Extension>),
         &out_dir,
