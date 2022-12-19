@@ -155,8 +155,6 @@ where
             .add_attribute("token_id", token_id))
     }
 
-    
-
     fn revoke(
         &self,
         deps: DepsMut,
